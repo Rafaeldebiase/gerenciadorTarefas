@@ -1,0 +1,59 @@
+<mat-toolbar class="toolbar">
+  <span> <h1>Gerênciador de tarefas</h1> </span>
+</mat-toolbar>
+
+<form [formGroup]="formulario">
+  <div class="containerCard">
+    <mat-card class="cardAdiciona">
+      <mat-card-content class="adicionaTarefa">
+        <mat-form-field class="adicionaTarefa" appearance="outline">
+          <mat-label>Nova Tarefa</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="tarefa"
+            placeholder="Adicione nova tarefa"
+          />
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions class="butao">
+        <button mat-icon-button (click)="butaoClick()">
+          <mat-icon aria-label="Adicionar tarefa">add_circle_outline</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</form>
+
+<div class="areaTrabalho">
+  <div class="container">
+    <h2>A fazer</h2>
+
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="doneList"
+      class="list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="list-item" *ngFor="let item of todo" cdkDrag>{{ item }}</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Concluído</h2>
+
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="todoList"
+      class="list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="list-item done" *ngFor="let item of done" cdkDrag>{{ item }}
+      </div>
+    </div>
+  </div>
+</div>
